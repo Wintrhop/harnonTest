@@ -1,0 +1,12 @@
+.formContainer {
+  width: 50%;
+}
+.loginBtn {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 10px 0px 0px 0px;
+  background: var(--btn-gradient);
+  box-shadow: var(--box-shadow);
+  border: none;
+}

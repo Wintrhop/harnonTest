@@ -1,11 +1,27 @@
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
-    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
-    'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
+    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
+    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 
   --foreground-rgb: 0, 0, 0;
+  --font-family1: var(--poppins-font);
+  --box-shadow: 0px 1px 2.2px rgba(0, 0, 0, 0.003),
+    0px 2.3px 5.3px rgba(0, 0, 0, 0.007), 0px 4.4px 10px rgba(0, 0, 0, 0.013),
+    0px 7.8px 17.9px rgba(0, 0, 0, 0.024),
+    0px 14.6px 33.4px rgba(0, 0, 0, 0.044), 0px 35px 80px rgba(0, 0, 0, 0.07);
+  --box-shadow1: 0px 9.5px 3.5px -11px rgba(0, 0, 0, 0.002),
+    0px 11.4px 8.8px -11px rgba(0, 0, 0, 0.003),
+    0px 12.2px 16.5px -11px rgba(0, 0, 0, 0.005),
+    0px 12.4px 27px -11px rgba(0, 0, 0, 0.008),
+    0px 12.4px 41.4px -11px rgba(0, 0, 0, 0.01),
+    0px 12.3px 60.6px -11px rgba(0, 0, 0, 0.013),
+    0px 12.2px 86.3px -11px rgba(0, 0, 0, 0.018),
+    0px 12.5px 119.4px -11px rgba(0, 0, 0, 0.024),
+    0px 13.5px 156.2px -11px rgba(0, 0, 0, 0.038),
+    0px 20px 186px -11px rgba(0, 0, 0, 0.07);
+  --btn-gradient: linear-gradient(128deg, #265077, #5085a5);
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 

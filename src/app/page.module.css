@@ -4,9 +4,15 @@
   justify-content: space-between;
   align-items: center;
   padding: 6rem;
-  min-height: 100vh;
+  
 }
-
+.txt{
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.btn{
+  margin: 8px;
+}
 .description {
   display: inherit;
   justify-content: inherit;
