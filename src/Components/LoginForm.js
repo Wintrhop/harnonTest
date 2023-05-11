@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import contextCreated from "@/context/context";
 import Btn from "./Btn";
 import LoadingSpinner from "./LoadingSpinner";
+import axios from "axios";
 
 const LoginForm = ({ handleClose }) => {
   const logged = useContext(contextCreated);
@@ -32,7 +33,12 @@ const LoginForm = ({ handleClose }) => {
           password,
         };
 
-        // fetch
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_BACK_API}/api/login`,
+          JSON.stringify(user)
+        );
+        const data = res.json();
+        console.log('respuesta', data);
         Swal.fire({
           toast: true,
           position: "top",
@@ -44,7 +50,7 @@ const LoginForm = ({ handleClose }) => {
         });
 
         // set info
-        console.log('user ', user);
+        
       } catch (error) {
         Swal.fire({
           title: "Error",
