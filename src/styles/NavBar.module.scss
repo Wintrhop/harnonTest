@@ -5,6 +5,15 @@
 .nameFlex {
   display: none;
 }
+.item{
+  padding: 10px;
+  border-radius: 3px;
+  
+}
+.item:hover{
+  background-color: rgb(167, 167, 173);
+  cursor: pointer;
+}
 
 @media (min-width: 768px) {
   .nameFlex {

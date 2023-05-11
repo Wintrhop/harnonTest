@@ -1,15 +1,15 @@
-'use client'
-import { createContext, useState } from "react";
+"use client";
+import { createContext, useContext, useState } from "react";
 
-const contextCreated = createContext();
+const contextLogged = createContext({});
 
-export const ContextProvider = ({ children }) => {
+export const ContextLoggedProvider = ({ children }) => {
   const [logged, setLogged] = useState(false);
   return (
-    <contextCreated.Provider value={logged}>
+    <contextLogged.Provider value={{ logged, setLogged }}>
       {children}
-    </contextCreated.Provider>
+    </contextLogged.Provider>
   );
 };
 
-export default contextCreated;
+export const useLoggedContext = () => useContext(contextLogged);

@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Poppins } from "next/font/google";
 import stylesApp from "./page.module.css";
 import NavBr from "@/Components/NavBr";
-import { ContextProvider } from "@/context/context";
+import { ContextLoggedProvider } from "@/context/context";
 
 const poppins = Poppins({
   weight: "400",
@@ -21,10 +21,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={poppins.className}>
+        
+        <ContextLoggedProvider>
         <NavBr />
-        <ContextProvider>
           <main className={stylesApp.main}>{children}</main>
-        </ContextProvider>
+        </ContextLoggedProvider>
       </body>
     </html>
   );

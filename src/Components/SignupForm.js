@@ -1,17 +1,19 @@
 "use client";
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 import { FloatingLabel, Form } from "react-bootstrap";
 import styles from "../styles/Login.module.scss";
 import Swal from "sweetalert2";
-import contextCreated from "@/context/context";
 import Btn from "./Btn";
 import LoadingSpinner from "./LoadingSpinner";
+import axios from "axios";
+import { useLoggedContext } from "@/context/context";
+import { useRouter } from 'next/navigation';
 
 const SignupForm = ({ handleClose }) => {
-  const logged = useContext(contextCreated);
+  const { logged, setLogged } = useLoggedContext();
   const [validated, setValidated] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const router = useRouter();
   const handleSubmit = async (e) => {
     const form = e.currentTarget;
     e.preventDefault();
@@ -26,13 +28,23 @@ const SignupForm = ({ handleClose }) => {
         setLoading(true);
         const password = form.password.value;
         const email = form.email.value;
+        const userName = form.name.value;
+        const age = form.age.value;
+        const role = form.role.value;
 
         const user = {
           email,
           password,
+          userName,
+          age,
+          role,
         };
 
-        // fetch
+        const { data } = await axios.post(
+          `${process.env.NEXT_PUBLIC_BACK_API}/api/signup`,
+          JSON.stringify(user)
+        );
+
         Swal.fire({
           toast: true,
           position: "top",
@@ -40,15 +52,20 @@ const SignupForm = ({ handleClose }) => {
           timer: 1800,
           timerProgressBar: true,
           icon: "success",
-          title: "Sesión iniciada",
+          title: "Registro exitoso",
         });
 
-        // setinfo
-        console.log("user ", user);
+        localStorage.setItem("email", data.email);
+        localStorage.setItem("name", data.userName);
+        localStorage.setItem("age", data.age);
+        localStorage.setItem("role", data.userRole);
+        setLogged(state=>true);
+        router.push("/profile");
       } catch (error) {
+        console.log(error);
         Swal.fire({
           title: "Error",
-          text: "Ocurrio un error al iniciar sesión revisa tus datos",
+          text: "Ocurrio un error al registrarte",
           icon: "error",
           confirmButtonText: "Perfecto",
         });
@@ -102,7 +119,6 @@ const SignupForm = ({ handleClose }) => {
                 id="name"
                 type="text"
                 placeholder="John Doe"
-                
               />
               <Form.Control.Feedback type="invalid">
                 Debe ingresar un nombre
@@ -111,20 +127,14 @@ const SignupForm = ({ handleClose }) => {
           </Form.Group>
           <Form.Group>
             <FloatingLabel label="Age" className="mb-3">
-              <Form.Control
-                required
-                id="age"
-                type="text"
-                placeholder="Age"
-                
-              />
+              <Form.Control required id="age" type="text" placeholder="Age" />
               <Form.Control.Feedback type="invalid">
                 Debe ingresar una edad
               </Form.Control.Feedback>
             </FloatingLabel>
           </Form.Group>
           <Form.Group>
-            <Form.Select size="lg">
+            <Form.Select id="role" size="lg">
               <option disabled>Select</option>
               <option value="client">Client</option>
               <option value="vendor">Vendor</option>

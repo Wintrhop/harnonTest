@@ -1,18 +1,19 @@
 "use client";
-import React, { useContext, useRef, useState } from "react";
+import React, { useState } from "react";
 import { FloatingLabel, Form } from "react-bootstrap";
 import styles from "../styles/Login.module.scss";
 import Swal from "sweetalert2";
-import contextCreated from "@/context/context";
+import { useLoggedContext } from "@/context/context";
 import Btn from "./Btn";
 import LoadingSpinner from "./LoadingSpinner";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const LoginForm = ({ handleClose }) => {
-  const logged = useContext(contextCreated);
+  const { logged, setLogged } = useLoggedContext();
   const [validated, setValidated] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const router = useRouter();
   const handleSubmit = async (e) => {
     const form = e.currentTarget;
     e.preventDefault();
@@ -33,12 +34,11 @@ const LoginForm = ({ handleClose }) => {
           password,
         };
 
-        const res = await axios.post(
+        const { data } = await axios.post(
           `${process.env.NEXT_PUBLIC_BACK_API}/api/login`,
           JSON.stringify(user)
         );
-        const data = res.json();
-        console.log('respuesta', data);
+
         Swal.fire({
           toast: true,
           position: "top",
@@ -49,9 +49,14 @@ const LoginForm = ({ handleClose }) => {
           title: "Sesión iniciada",
         });
 
-        // set info
-        
+        localStorage.setItem("email", data.email);
+        localStorage.setItem("name", data.userName);
+        localStorage.setItem("age", data.age);
+        localStorage.setItem("role", data.userRole);
+        setLogged((state) => true);
+        router.push("/profile");
       } catch (error) {
+        console.log(error);
         Swal.fire({
           title: "Error",
           text: "Ocurrio un error al iniciar sesión revisa tus datos",
